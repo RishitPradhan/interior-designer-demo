@@ -432,7 +432,7 @@ export default function App() {
       </section>
 
       {/* 5. Artificial Intelligence design sandbox module */}
-      <section id="ai-co-designer" className="py-20 md:py-28 bg-stone-50 border-y border-stone-100 scroll-mt-20 reveal-on-scroll">
+      <section id="ai-co-designer" className="py-20 md:py-28 bg-[#1A110A] border-y border-amber-900/20 scroll-mt-20 reveal-on-scroll">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 space-y-12">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -443,17 +443,17 @@ export default function App() {
                   <Sparkles className="w-3.5 h-3.5 animate-pulse" /> Live Experimental Sandbox
                 </span>
               </div>
-              <h2 className="font-serif text-3xl md:text-5xl text-wood-rich font-bold tracking-tight">
+              <h2 className="font-serif text-3xl md:text-5xl text-beige-warm font-bold tracking-tight">
                 AI Interior Solarium Lounge
               </h2>
-              <p className="max-w-xl text-stone-500 text-xs md:text-sm leading-relaxed">
+              <p className="max-w-xl text-amber-200/60 text-xs md:text-sm leading-relaxed">
                 Describe your dream room space details or highlight material likes below. Our integrated Gemini AI architect will formulate color codes, furniture recommendations, and structural floor guidelines instantly.
               </p>
             </div>
 
             <button
               onClick={() => setShowAiConsole(!showAiConsole)}
-              className="text-xs uppercase tracking-widest font-bold text-wood-rich border-b border-wood-rich pb-1 hover:opacity-75 transition-all"
+              className="text-xs uppercase tracking-widest font-bold text-beige-warm border-b border-beige-warm/50 pb-1 hover:opacity-75 transition-all shrink-0"
             >
               {showAiConsole ? "Collapse Design Sandbox" : "Expand Design Sandbox"}
             </button>
@@ -467,94 +467,95 @@ export default function App() {
       </section>
 
       {/* 6. Dynamic Filterable Inspiration Gallery */}
-      <section id="inspiration-gallery" className="py-20 md:py-28 px-6 md:px-20 max-w-7xl mx-auto scroll-mt-20 reveal-on-scroll">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="w-10 h-0.5 bg-wood-rich inline-block" />
-              <span className="text-[10px] uppercase tracking-widest font-bold text-stone-550">
-                CURATED INSPIRATIONS
-              </span>
-            </div>
-            <h2 className="font-serif text-3xl md:text-5xl text-wood-rich font-bold tracking-tight">
-              Inspiration Gallery
-            </h2>
-            <p className="max-w-sm text-stone-500 text-xs md:text-sm">
-              Discover pristine modern sanctuaries constructed around refined spatial harmony and elegant aesthetics.
-            </p>
-          </div>
-
-          {/* Filtering options */}
-          <div className="flex flex-wrap gap-2 pt-2 border-b border-stone-200 pb-2 relative">
-            {["All", "Living Room", "Bedroom", "Kitchen", "Office"].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveGalleryCat(cat)}
-                className={`text-[10px] uppercase tracking-widest font-bold px-4 py-2.5 transition-all duration-300 relative cursor-pointer ${
-                  activeGalleryCat === cat
-                    ? "text-wood-rich font-bold"
-                    : "text-stone-400 hover:text-stone-750"
-                }`}
-              >
-                {cat}
-                {/* Custom sliding line indicator */}
-                <span
-                  className={`absolute bottom-0 left-0 w-full h-[2px] bg-wood-rich transition-transform duration-300 origin-left ${
-                    activeGalleryCat === cat ? "scale-x-100" : "scale-x-0"
-                  }`}
-                />
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Gallery grid Masonry/Bento styling */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredGallery.map((item, idx) => {
-            const isLiked = likedGalleryItems.includes(item.id);
-            return (
-              <div
-                key={item.id}
-                onClick={() => setSelectedGalleryItem(item)}
-                className={`group relative overflow-hidden rounded-xl shadow-sm border border-stone-150 bg-white flex flex-col justify-between hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500 cursor-pointer reveal-on-scroll stagger-${(idx % 3) + 1}`}
-              >
-                {/* Image panel */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 pointer-events-none"
-                    src={item.image}
-                    alt={item.title}
-                    referrerPolicy="no-referrer"
-                  />
-                  {/* Category box */}
-                  <div className="absolute top-4 left-4 bg-white/95 text-stone-900 border border-stone-150 px-3 py-1 text-[9px] uppercase tracking-widest font-extrabold rounded shadow-sm backdrop-blur transition-all duration-300 group-hover:bg-wood-rich group-hover:text-white group-hover:border-wood-rich">
-                    {item.category}
-                  </div>
-
-                  {/* Favorite indicator pin */}
-                  <button
-                    onClick={(e) => toggleLike(item.id, e)}
-                    className="absolute top-4 right-4 p-2 rounded-full bg-white/95 text-stone-500 hover:text-red-500 shadow hover:scale-110 active:scale-95 transition backdrop-blur z-20 cursor-pointer"
-                  >
-                    <Heart className={`w-4 h-4 transition-transform active:scale-125 ${isLiked ? "fill-accent-coral text-accent-coral" : ""}`} />
-                  </button>
-                </div>
-
-                {/* Caption panel */}
-                <div className="p-6 text-left space-y-1.5 border-t border-stone-100 bg-[#FAF9F6] transition-colors duration-300 group-hover:bg-white">
-                  <div className="flex justify-between items-center">
-                    <h4 className="font-serif text-sm font-semibold text-stone-900 group-hover:text-wood-rich transition-colors">
-                      {item.title}
-                    </h4>
-                    <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-400">No {item.id.replace('gal-', '0')}</span>
-                  </div>
-                  <p className="text-stone-500 text-xs leading-relaxed font-sans font-light">
-                    {item.description}
-                  </p>
-                </div>
+      <section id="inspiration-gallery" className="py-20 md:py-28 scroll-mt-20 reveal-on-scroll" style={{background: 'linear-gradient(180deg, #120D08 0%, #1E140C 100%)'}}>
+        <div className="max-w-7xl mx-auto px-6 md:px-16">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <span className="w-10 h-0.5 bg-accent-coral inline-block" />
+                <span className="text-[10px] uppercase tracking-widest font-bold text-amber-700/80">
+                  CURATED INSPIRATIONS
+                </span>
               </div>
-            );
-          })}
+              <h2 className="font-serif text-3xl md:text-5xl text-beige-warm font-bold tracking-tight">
+                Inspiration Gallery
+              </h2>
+              <p className="max-w-sm text-amber-200/50 text-xs md:text-sm">
+                Discover pristine modern sanctuaries constructed around refined spatial harmony and elegant aesthetics.
+              </p>
+            </div>
+
+            {/* Filtering options */}
+            <div className="flex flex-wrap gap-2 pt-2 border-b border-amber-900/30 pb-2 relative">
+              {["All", "Living Room", "Bedroom", "Kitchen", "Office"].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveGalleryCat(cat)}
+                  className={`text-[10px] uppercase tracking-widest font-bold px-4 py-2.5 transition-all duration-300 relative cursor-pointer ${
+                    activeGalleryCat === cat
+                      ? "text-beige-warm font-bold"
+                      : "text-amber-700/60 hover:text-amber-400"
+                  }`}
+                >
+                  {cat}
+                  <span
+                    className={`absolute bottom-0 left-0 w-full h-[2px] bg-accent-coral transition-transform duration-300 origin-left ${
+                      activeGalleryCat === cat ? "scale-x-100" : "scale-x-0"
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Gallery grid Masonry/Bento styling */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredGallery.map((item, idx) => {
+              const isLiked = likedGalleryItems.includes(item.id);
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => setSelectedGalleryItem(item)}
+                  className={`group relative overflow-hidden rounded-xl shadow-lg border border-amber-900/25 bg-[#1C1108] flex flex-col justify-between hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 cursor-pointer reveal-on-scroll stagger-${(idx % 3) + 1}`}
+                >
+                  {/* Image panel */}
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 pointer-events-none"
+                      src={item.image}
+                      alt={item.title}
+                      referrerPolicy="no-referrer"
+                    />
+                    {/* Category box */}
+                    <div className="absolute top-4 left-4 bg-black/60 text-amber-200 border border-amber-800/40 px-3 py-1 text-[9px] uppercase tracking-widest font-extrabold rounded shadow-sm backdrop-blur transition-all duration-300 group-hover:bg-accent-coral group-hover:text-white group-hover:border-accent-coral">
+                      {item.category}
+                    </div>
+
+                    {/* Favorite indicator pin */}
+                    <button
+                      onClick={(e) => toggleLike(item.id, e)}
+                      className="absolute top-4 right-4 p-2 rounded-full bg-black/50 text-amber-300 hover:text-accent-coral shadow hover:scale-110 active:scale-95 transition backdrop-blur z-20 cursor-pointer"
+                    >
+                      <Heart className={`w-4 h-4 transition-transform active:scale-125 ${isLiked ? "fill-accent-coral text-accent-coral" : ""}`} />
+                    </button>
+                  </div>
+
+                  {/* Caption panel */}
+                  <div className="p-6 text-left space-y-1.5 border-t border-amber-900/25 bg-[#1C1108] transition-colors duration-300 group-hover:bg-[#231509]">
+                    <div className="flex justify-between items-center">
+                      <h4 className="font-serif text-sm font-semibold text-beige-warm group-hover:text-amber-300 transition-colors">
+                        {item.title}
+                      </h4>
+                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-amber-800/60">No {item.id.replace('gal-', '0')}</span>
+                    </div>
+                    <p className="text-amber-200/50 text-xs leading-relaxed font-sans font-light">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -620,32 +621,32 @@ export default function App() {
       </section>
 
       {/* 9. Before / After Featured Project renovations Showcase */}
-      <section id="featured-projects" className="py-24 bg-stone-50 border-t border-stone-200 scroll-mt-20 reveal-on-scroll">
+      <section id="featured-projects" className="py-24 bg-[#251A12] border-t border-amber-800/30 scroll-mt-20 reveal-on-scroll">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 space-y-16">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="space-y-4 text-left">
               <div className="flex items-center gap-2">
-                <span className="w-10 h-0.5 bg-wood-rich inline-block" />
-                <span className="text-[10px] uppercase tracking-widest font-extrabold text-[#5D4037]">
+                <span className="w-10 h-0.5 bg-accent-coral inline-block" />
+                <span className="text-[10px] uppercase tracking-widest font-extrabold text-amber-700/80">
                   RENOVATIONS REVEALED
                 </span>
               </div>
-              <h2 className="font-serif text-3xl md:text-5xl text-wood-rich font-bold tracking-tight">
+              <h2 className="font-serif text-3xl md:text-5xl text-amber-50 font-bold tracking-tight">
                 Featured Renovation Projects
               </h2>
             </div>
 
             {/* Switch tabs */}
-            <div className="flex gap-2 bg-stone-200/60 p-1.5 rounded-lg border border-stone-150">
+            <div className="flex gap-2 bg-amber-950/40 p-1.5 rounded-lg border border-amber-900/30">
               {PROJECTS.map((proj, idx) => (
                 <button
                   key={proj.id}
                   onClick={() => setActiveProjectIndex(idx)}
                   className={`text-[10px] uppercase tracking-widest font-bold px-4 py-2 rounded-md transition-all cursor-pointer ${
                     activeProjectIndex === idx
-                      ? "bg-stone-900 text-white shadow-sm"
-                      : "text-stone-550 hover:text-stone-900"
+                      ? "bg-accent-coral text-white shadow-sm"
+                      : "text-amber-700/70 hover:text-beige-warm"
                   }`}
                 >
                   Project {idx + 1}
@@ -761,7 +762,7 @@ export default function App() {
           onClick={() => setSelectedGalleryItem(null)}
         >
           <div 
-            className="relative bg-white text-stone-900 rounded-2xl overflow-hidden max-w-4xl w-full border border-stone-200 shadow-2xl animate-slide-up flex flex-col md:flex-row max-h-[90vh] md:max-h-[85vh]"
+            className="relative bg-[#1C1108] text-beige-warm rounded-2xl overflow-hidden max-w-4xl w-full border border-amber-900/30 shadow-2xl animate-slide-up flex flex-col md:flex-row max-h-[90vh] md:max-h-[85vh]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Image display panel */}
@@ -772,7 +773,7 @@ export default function App() {
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
-              <span className="absolute top-4 left-4 bg-stone-900 text-white border border-white/25 text-[9px] uppercase tracking-widest font-extrabold px-3 py-1 rounded shadow">
+              <span className="absolute top-4 left-4 bg-black/70 text-amber-200 border border-amber-800/40 text-[9px] uppercase tracking-widest font-extrabold px-3 py-1 rounded shadow">
                 {selectedGalleryItem.category}
               </span>
             </div>
@@ -782,31 +783,31 @@ export default function App() {
               <div className="space-y-6">
                 <div className="flex justify-between items-start">
                   <div>
-                    <span className="text-[10px] uppercase tracking-widest font-bold text-stone-400 block mb-1">
+                    <span className="text-[10px] uppercase tracking-widest font-bold text-amber-700/70 block mb-1">
                       Aurelian Atelier Archive
                     </span>
-                    <h3 className="font-serif text-2xl md:text-3xl font-bold text-wood-rich tracking-wide">
+                    <h3 className="font-serif text-2xl md:text-3xl font-bold text-beige-warm tracking-wide">
                       {selectedGalleryItem.title}
                     </h3>
                   </div>
                   <button
                     onClick={() => setSelectedGalleryItem(null)}
-                    className="p-1 px-2.5 rounded-full border border-stone-200 text-stone-400 hover:text-stone-800 hover:bg-stone-55 transition cursor-pointer text-xs font-bold"
+                    className="p-1 px-2.5 rounded-full border border-amber-900/40 text-amber-600 hover:text-beige-warm hover:bg-amber-900/20 transition cursor-pointer text-xs font-bold"
                   >
                     ✕
                   </button>
                 </div>
 
-                <div className="h-px bg-stone-100" />
+                <div className="h-px bg-amber-900/20" />
 
                 <div className="space-y-4">
-                  <p className="text-stone-600 font-sans text-xs md:text-sm leading-relaxed">
+                  <p className="text-amber-200/60 font-sans text-xs md:text-sm leading-relaxed">
                     {selectedGalleryItem.description}
                   </p>
                   
-                  <div className="bg-stone-50 p-4 rounded-xl border border-stone-150 space-y-2">
-                    <span className="text-[9.5px] font-bold text-wood-rich uppercase tracking-wider block">Architectural Design Note</span>
-                    <p className="text-stone-500 text-[11px] leading-relaxed">
+                  <div className="bg-amber-950/40 p-4 rounded-xl border border-amber-900/30 space-y-2">
+                    <span className="text-[9.5px] font-bold text-accent-coral uppercase tracking-wider block">Architectural Design Note</span>
+                    <p className="text-amber-200/55 text-[11px] leading-relaxed">
                       This space centers around haptic architectural balance, prioritizing premium finishes and smooth integrated storage solutions. Settle for nothing less than absolute structural harmony. It can be fully adapted to your custom villa or penthouse configuration.
                     </p>
                   </div>
@@ -822,13 +823,13 @@ export default function App() {
                     scrollToSection("consultation-checkout");
                     showToast("Style selection prefilled!");
                   }}
-                  className="flex-1 bg-wood-rich hover:bg-[#3d271f] text-white py-3 px-6 rounded-lg font-bold text-xs uppercase tracking-widest transition duration-300 shadow cursor-pointer text-center"
+                  className="flex-1 bg-accent-coral hover:bg-[#c04a32] text-white py-3 px-6 rounded-lg font-bold text-xs uppercase tracking-widest transition duration-300 shadow cursor-pointer text-center"
                 >
                   Inquire about this style
                 </button>
                 <button
                   onClick={() => setSelectedGalleryItem(null)}
-                  className="border border-stone-200 text-stone-550 hover:bg-stone-50 text-xs py-3 px-6 rounded-lg transition cursor-pointer"
+                  className="border border-amber-900/40 text-amber-400/80 hover:bg-amber-900/20 text-xs py-3 px-6 rounded-lg transition cursor-pointer"
                 >
                   Keep browsing
                 </button>
