@@ -1,0 +1,6 @@
+{
+  "name": "Aurelian",
+  "description": "Premium High-End Interior Design Showcase and AI Studio",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
