@@ -310,24 +310,27 @@ export default function AIConsultant({ onSelectedConceptForForm }: AIConsultantP
 
       {/* Curated output mood board */}
       {recommendation && !isLoading && (
-        <div className="space-y-8 animate-fade-in">
+        <div className="space-y-8 animate-fade-in text-left">
           {/* Main heading */}
-          <div className="bg-slate-deep text-beige-warm p-8 md:p-12 rounded-3xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start gap-8 shadow-xl">
-            <div className="space-y-3 max-w-2xl">
-              <span className="inline-block bg-white/10 text-stone-300 border border-white/10 px-3 py-1 rounded-full text-[9px] tracking-widest font-bold uppercase">
-                Aurelian Creative Output
+          <div className="bg-[#FAF9F6] text-stone-900 p-8 md:p-12 rounded-3xl border border-stone-200/80 relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-8 shadow-sm">
+            {/* Subtle luxury design accents */}
+            <div className="absolute top-0 left-0 w-2 h-full bg-wood-rich" />
+            <div className="space-y-3 max-w-2xl relative z-10">
+              <span className="inline-flex items-center gap-1.5 bg-wood-rich/5 text-wood-rich px-3.5 py-1.5 rounded-full text-[9px] tracking-widest font-extrabold uppercase border border-wood-rich/10">
+                <Sparkles className="w-3.5 h-3.5 text-accent-coral" />
+                Aurelian Creative Concept
               </span>
-              <h4 className="font-serif text-3xl md:text-4xl font-semibold leading-tight tracking-tight">
+              <h4 className="font-serif text-3xl md:text-4xl font-bold leading-tight tracking-tight text-wood-rich">
                 {recommendation.conceptName}
               </h4>
-              <p className="text-xs md:text-sm font-sans font-light leading-relaxed text-stone-300 italic">
+              <p className="text-xs md:text-sm font-sans font-light leading-relaxed text-stone-600 italic">
                 "{recommendation.editorialIntro}"
               </p>
             </div>
 
             <button
               onClick={() => handleApplyConceptToBooking(recommendation)}
-              className="bg-[#EAE0D5] text-stone-900 font-sans hover:bg-white px-6 py-4 rounded-xl text-[11px] font-bold uppercase tracking-widest shadow transition shrink-0 cursor-pointer"
+              className="bg-wood-rich text-white hover:bg-stone-900 font-sans hover:shadow-md hover:scale-[1.02] active:scale-98 px-6 py-4 rounded-xl text-[11px] font-extrabold uppercase tracking-widest shadow transition-all shrink-0 cursor-pointer"
             >
               Apply Concept to Appointment
             </button>
@@ -337,8 +340,8 @@ export default function AIConsultant({ onSelectedConceptForForm }: AIConsultantP
             {/* Swatches & Elements */}
             <div className="lg:col-span-8 space-y-8">
               {/* Color Scheme */}
-              <div className="bg-white p-6 rounded-2xl border border-stone-150">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#5D4037] block mb-4">
+              <div className="bg-white p-6 md:p-8 rounded-2xl border border-stone-150">
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-wood-rich block mb-6 border-b border-stone-100 pb-3">
                   Curated Paint & Material Palette (Click hex card to copy)
                 </span>
 
@@ -347,11 +350,11 @@ export default function AIConsultant({ onSelectedConceptForForm }: AIConsultantP
                     <div
                       key={i}
                       onClick={() => copyToClipboard(color.hex)}
-                      className="cursor-pointer group flex flex-col justify-between border border-stone-150 rounded-xl overflow-hidden hover:shadow transition-all bg-stone-50"
+                      className="cursor-pointer group flex flex-col justify-between border border-stone-150 rounded-xl overflow-hidden hover:shadow-md hover:-translate-y-1.5 transition-all duration-500 bg-stone-50"
                     >
                       {/* Swatch color area */}
                       <div
-                        className="h-20 w-full transition-transform duration-500 group-hover:scale-105 relative flex items-center justify-center text-white"
+                        className="h-24 w-full transition-transform duration-500 group-hover:scale-105 relative flex items-center justify-center text-white"
                         style={{ backgroundColor: color.hex }}
                       >
                         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition justify-center items-center flex">
@@ -360,19 +363,19 @@ export default function AIConsultant({ onSelectedConceptForForm }: AIConsultantP
                       </div>
 
                       {/* Details */}
-                      <div className="p-3.5 space-y-1 text-left select-text">
-                        <span className="text-[11px] font-bold font-sans text-stone-800 line-clamp-1">
+                      <div className="p-4 space-y-1 text-left select-text border-t border-stone-100">
+                        <span className="text-[11px] font-bold font-sans text-stone-850 line-clamp-1">
                           {color.name}
                         </span>
                         <div className="flex items-center justify-between">
                           <span className="text-[10px] font-mono text-stone-400 font-bold uppercase">{color.hex}</span>
                           {copiedHex === color.hex && (
-                            <span className="text-[8px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded leading-none uppercase tracking-wide animate-pulse">
+                            <span className="text-[8px] bg-emerald-50 text-emerald-700 border border-emerald-100 font-bold px-1.5 py-0.5 rounded leading-none uppercase tracking-wide animate-pulse">
                               COPIED
                             </span>
                           )}
                         </div>
-                        <p className="text-[9.5px] text-stone-500 font-light leading-snug pt-1">
+                        <p className="text-[9.5px] text-stone-500 font-light leading-snug pt-1 border-t border-stone-100/50 mt-1">
                           {color.usage}
                         </p>
                       </div>
@@ -382,26 +385,28 @@ export default function AIConsultant({ onSelectedConceptForForm }: AIConsultantP
               </div>
 
               {/* Showcase items */}
-              <div className="bg-white p-6 rounded-2xl border border-stone-150 space-y-4">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#5D4037] block">
+              <div className="bg-white p-6 md:p-8 rounded-2xl border border-stone-150 space-y-6">
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-wood-rich block border-b border-stone-100 pb-3">
                   Signature Furniture & Decor Selections
                 </span>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {recommendation.furniture.map((furn, i) => (
-                    <div key={i} className="bg-stone-50 p-5 rounded-xl border border-stone-150 space-y-2 text-left relative overflow-hidden">
-                      <span className="absolute right-3 top-3 font-serif text-3xl font-black text-stone-200">
+                    <div key={i} className="group bg-[#FAF9F6] hover:bg-white p-5 rounded-xl border border-stone-150 hover:border-stone-300 hover:shadow-md transition-all duration-300 text-left relative overflow-hidden flex flex-col justify-between min-h-[160px]">
+                      <span className="absolute -right-2 -bottom-4 font-serif text-8xl font-black text-stone-150/40 select-none pointer-events-none group-hover:scale-105 transition-transform duration-500">
                         0{i + 1}
                       </span>
-                      <h5 className="font-serif text-sm font-bold text-wood-rich leading-snug">
-                        {furn.item}
-                      </h5>
-                      <span className="inline-block bg-beige-warm/60 font-sans text-[8.5px] text-wood-rich font-bold px-2 py-0.5 rounded">
-                        Finish: {furn.materialHint}
-                      </span>
-                      <p className="text-[10.5px] leading-relaxed text-stone-600 font-sans pt-1">
-                        {furn.description}
-                      </p>
+                      <div className="space-y-2 relative z-10">
+                        <h5 className="font-serif text-sm font-bold text-wood-rich leading-snug group-hover:text-accent-coral transition-colors">
+                          {furn.item}
+                        </h5>
+                        <span className="inline-block bg-wood-rich/5 border border-wood-rich/10 font-sans text-[8.5px] text-stone-700 font-semibold px-2.5 py-0.5 rounded uppercase tracking-wider">
+                          Finish: {furn.materialHint}
+                        </span>
+                        <p className="text-[10.5px] leading-relaxed text-stone-600 font-sans pt-1">
+                          {furn.description}
+                        </p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -411,34 +416,34 @@ export default function AIConsultant({ onSelectedConceptForForm }: AIConsultantP
             {/* Accent column details */}
             <div className="lg:col-span-4 space-y-8">
               {/* Material board */}
-              <div className="bg-stone-900 text-stone-100 p-6 rounded-2xl space-y-4">
-                <span className="text-[9px] font-bold uppercase tracking-widest text-[#FFF5EB] block border-b border-white/10 pb-2">
+              <div className="bg-gradient-to-br from-stone-900 to-stone-950 text-stone-100 p-6 md:p-8 rounded-2xl border border-stone-850 shadow-md space-y-5">
+                <span className="text-[9px] font-bold uppercase tracking-widest text-beige-warm block border-b border-white/10 pb-3">
                   Tactile Materials Profile
                 </span>
 
-                <div className="space-y-3">
+                <div className="space-y-3.5">
                   {recommendation.materials.map((mat, i) => (
                     <div key={i} className="flex items-center gap-3 text-xs">
-                      <div className="w-5 h-5 bg-white/10 rounded-full flex items-center justify-center font-bold text-[9px] text-[#FFF5EB] font-serif shrink-0 border border-white/10">
+                      <div className="w-5 h-5 bg-white/10 rounded-full flex items-center justify-center font-bold text-[9px] text-beige-warm font-serif shrink-0 border border-white/10">
                         {i + 1}
                       </div>
-                      <span className="font-sans font-medium text-stone-200">{mat}</span>
+                      <span className="font-sans font-medium text-stone-300">{mat}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Advice */}
-              <div className="bg-[#FAF8F5] p-6 rounded-2xl border border-stone-200 space-y-4">
-                <span className="text-[9px] font-bold uppercase tracking-widest text-wood-rich block border-b border-stone-200 pb-2">
-                  Architectural Implementation Guidelines
+              <div className="bg-[#FAF9F6] p-6 md:p-8 rounded-2xl border border-stone-200 space-y-5 shadow-sm">
+                <span className="text-[9px] font-bold uppercase tracking-widest text-wood-rich block border-b border-stone-200 pb-3">
+                  Architectural Guidelines
                 </span>
 
-                <div className="space-y-4 text-left">
+                <div className="space-y-5 text-left">
                   {recommendation.architecturalAdvice.map((adv, i) => (
-                    <div key={i} className="text-xs space-y-1">
-                      <span className="font-serif font-black text-stone-400 block tracking-wider">GUIDE 0{i + 1}</span>
-                      <p className="text-stone-700 leading-relaxed font-sans">{adv}</p>
+                    <div key={i} className="text-xs space-y-1.5">
+                      <span className="font-serif font-black text-accent-coral/80 block tracking-widest text-[9.5px]">GUIDE 0{i + 1}</span>
+                      <p className="text-stone-700 leading-relaxed font-sans font-normal">{adv}</p>
                     </div>
                   ))}
                 </div>

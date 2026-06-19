@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BeforeAfterProject } from "../types";
 import { Split, ArrowRightLeft, Quote } from "lucide-react";
 
@@ -10,26 +10,44 @@ export default function BeforeAfterSlider({ project }: BeforeAfterSliderProps) {
   // Slider position (percentage from 0 to 100)
   const [sliderPos, setSliderPos] = useState<number>(50);
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleMove = (clientX: number, containerRect: DOMRect) => {
-    const x = clientX - containerRect.left;
-    const percentage = Math.max(0, Math.min(100, (x / containerRect.width) * 100));
+  const handleMove = (clientX: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
     setSliderPos(percentage);
   };
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    const container = e.currentTarget.getBoundingClientRect();
+  const handleTouchMove = (e: TouchEvent) => {
     if (e.touches[0]) {
-      handleMove(e.touches[0].clientX, container);
+      handleMove(e.touches[0].clientX);
     }
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const container = e.currentTarget.getBoundingClientRect();
-    if (e.buttons === 1 || isDragging) {
-      handleMove(e.clientX, container);
-    }
+  const handleMouseMove = (e: MouseEvent) => {
+    handleMove(e.clientX);
   };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
+      window.addEventListener("touchmove", handleTouchMove, { passive: true });
+      window.addEventListener("touchend", handleMouseUp);
+    }
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleMouseUp);
+    };
+  }, [isDragging]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-white p-8 rounded-2xl shadow-sm border border-stone-100">
@@ -37,58 +55,61 @@ export default function BeforeAfterSlider({ project }: BeforeAfterSliderProps) {
       <div className="lg:col-span-7 space-y-4">
         {/* Helper info banner */}
         <div className="flex justify-between items-center text-xs uppercase tracking-wider font-semibold text-stone-400">
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-1 select-none">
             <ArrowRightLeft className="w-3.5 h-3.5" />
             Drag or slide to compare
           </span>
-          <div className="flex gap-2">
-            <span className="bg-stone-100 text-stone-600 px-2 py-0.5 rounded">Before {Math.round(100 - sliderPos)}%</span>
-            <span className="bg-wood-rich text-white px-2 py-0.5 rounded">After {Math.round(sliderPos)}%</span>
+          <div className="flex gap-2 select-none">
+            <span className="bg-stone-100 text-stone-600 px-2 py-0.5 rounded">Original {Math.round(sliderPos)}%</span>
+            <span className="bg-wood-rich text-white px-2 py-0.5 rounded">Aurelian {Math.round(100 - sliderPos)}%</span>
           </div>
         </div>
 
         {/* Standard split slider container */}
         <div
+          ref={containerRef}
           className="relative h-[340px] md:h-[430px] rounded-xl overflow-hidden select-none cursor-ew-resize border border-stone-200 shadow-md group"
-          onMouseMove={handleMouseMove}
-          onTouchMove={handleTouchMove}
-          onMouseDown={() => setIsDragging(true)}
-          onMouseUp={() => setIsDragging(false)}
-          onMouseLeave={() => setIsDragging(false)}
+          onMouseDown={(e) => {
+            e.preventDefault(); // Prevents default text highlight or image drag ghosting
+            setIsDragging(true);
+            handleMove(e.clientX);
+          }}
+          onTouchStart={(e) => {
+            setIsDragging(true);
+            if (e.touches[0]) {
+              handleMove(e.touches[0].clientX);
+            }
+          }}
         >
           {/* Base image (The AFTER) */}
-          <div className="absolute inset-0 w-full h-full">
+          <div className="absolute inset-0 w-full h-full pointer-events-none">
             <img
               src={project.image}
               alt="After luxury interior"
               className="w-full h-full object-cover pointer-events-none"
+              draggable="false"
               referrerPolicy="no-referrer"
             />
             {/* After Tag */}
-            <div className="absolute right-4 bottom-4 bg-wood-rich/90 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded backdrop-blur z-20">
+            <div className="absolute right-4 bottom-4 bg-wood-rich/90 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded backdrop-blur z-25">
               Aurelian Elegant Handover
             </div>
           </div>
 
-          {/* Overlay image (The BEFORE - filtered to resemble a dated dark look) */}
+          {/* Overlay image (The BEFORE - filtered to resemble a dated look) */}
           <div
-            className="absolute inset-0 overflow-hidden pointer-events-none"
-            style={{ width: `${100 - sliderPos}%` }}
+            className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden"
+            style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
           >
-            {/* We use the same image but styled as dated to mimic before/after, or offset it visually. 
-                Using CSS grayscale + sepia + low brightness creates a perfect 'before' representation of a old room! */}
             <img
               src={project.image}
               alt="Before dated layout"
-              className="absolute inset-0 w-full h-full object-cover grayscale saturate-50 sepia-20 brightness-65 contrast-110 blur-[1px]"
-              style={{
-                width: "100%",
-                maxWidth: "none",
-              }}
+              className="absolute inset-0 w-full h-full object-cover grayscale saturate-50 sepia-20 brightness-65 contrast-110 blur-[1px] pointer-events-none"
+              draggable="false"
               referrerPolicy="no-referrer"
             />
             {/* Before Tag */}
-            <div className="absolute left-4 bottom-4 bg-stone-900/95 text-stone-300 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded backdrop-blur z-20">
+            <div className="absolute left-4 bottom-4 bg-stone-900/95 text-stone-300 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded backdrop-blur z-25">
               Original Dated Configuration
             </div>
           </div>
@@ -96,7 +117,7 @@ export default function BeforeAfterSlider({ project }: BeforeAfterSliderProps) {
           {/* Drag slider handle bar */}
           <div
             className="absolute top-0 bottom-0 w-1 bg-white/90 cursor-ew-resize pointer-events-none z-30"
-            style={{ right: `${sliderPos}%` }}
+            style={{ left: `${sliderPos}%` }}
           >
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-wood-rich text-white border-2 border-white shadow-xl flex items-center justify-center pointer-events-none group-hover:scale-110 transition-transform">
               <Split className="w-4 h-4" />
@@ -135,7 +156,7 @@ export default function BeforeAfterSlider({ project }: BeforeAfterSliderProps) {
         </div>
 
         {/* Change Notes */}
-        <div className="grid grid-cols-2 gap-4 text-xs font-sans">
+        <div className="grid grid-cols-2 gap-4 text-xs font-sans text-left">
           <div className="space-y-1 border-stone-200 border-r pr-3">
             <span className="font-bold text-stone-500 uppercase tracking-widest text-[10px]">What was changed:</span>
             <p className="text-stone-600 leading-normal">{project.beforeNotes}</p>

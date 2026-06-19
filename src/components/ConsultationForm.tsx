@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Calendar, Phone, User, MessageCircle, AlertCircle, FileText } from "lucide-react";
+import { Calendar, Phone, User, MessageCircle, AlertCircle, FileText, ChevronRight } from "lucide-react";
 import { ConsultationRequest } from "../types";
 
 interface ConsultationFormProps {
@@ -181,7 +181,7 @@ export default function ConsultationForm({ initialRequirement = "Full Home Inter
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Eleanor Vance"
-              className="w-full bg-transparent border-b border-white/30 focus:border-beige-warm focus:ring-0 py-3 transition-colors text-white text-sm outline-none outline-0"
+              className="w-full bg-transparent border-b border-white/30 focus:border-beige-warm focus:border-b-2 py-3 transition-all text-white placeholder:text-white/40 text-sm outline-none outline-0"
             />
           </div>
 
@@ -196,7 +196,7 @@ export default function ConsultationForm({ initialRequirement = "Full Home Inter
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="+1 (555) 000-0000"
-              className="w-full bg-transparent border-b border-white/30 focus:border-beige-warm focus:ring-0 py-3 transition-colors text-white text-sm outline-none outline-0"
+              className="w-full bg-transparent border-b border-white/30 focus:border-beige-warm focus:border-b-2 py-3 transition-all text-white placeholder:text-white/40 text-sm outline-none outline-0"
             />
           </div>
 
@@ -205,25 +205,30 @@ export default function ConsultationForm({ initialRequirement = "Full Home Inter
             <label className="text-[10px] font-bold uppercase tracking-widest text-[#FFF5EB]/65 flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5 text-stone-400" /> Your Project Requirement
             </label>
-            <select
-              value={requirement}
-              onChange={(e) => setRequirement(e.target.value)}
-              className="w-full bg-transparent border-b border-white/30 focus:border-beige-warm focus:ring-0 py-3 transition-colors text-white text-sm outline-none appearance-none cursor-pointer"
-              style={{ colorScheme: "dark" }}
-            >
-              <option value="Full Home Interior" className="bg-wood-rich text-white hover:bg-[#4E3629]">Full Home Interior Design</option>
-              <option value="Kitchen Remodel" className="bg-wood-rich text-white hover:bg-[#4E3629]">Gourmet Kitchen Remodeling</option>
-              <option value="Office Design" className="bg-wood-rich text-white hover:bg-[#4E3629]">Sophisticated Studio Workspace</option>
-              <option value="Luxury Consultation" className="bg-wood-rich text-white hover:bg-[#4E3629]">Bespoke Architectural Walkthrough</option>
-              {requirement !== "Full Home Interior" &&
-                requirement !== "Kitchen Remodel" &&
-                requirement !== "Office Design" &&
-                requirement !== "Luxury Consultation" && (
-                  <option value={requirement} className="bg-wood-rich text-white hover:bg-[#4E3629]">
-                    {requirement}
-                  </option>
-                )}
-            </select>
+            <div className="relative">
+              <select
+                value={requirement}
+                onChange={(e) => setRequirement(e.target.value)}
+                className="w-full bg-transparent border-b border-white/30 focus:border-beige-warm focus:border-b-2 py-3 pr-8 transition-all text-white text-sm outline-none appearance-none cursor-pointer"
+                style={{ colorScheme: "dark" }}
+              >
+                <option value="Full Home Interior" className="bg-[#2D1F1A] text-white">Full Home Interior Design</option>
+                <option value="Kitchen Remodel" className="bg-[#2D1F1A] text-white">Gourmet Kitchen Remodeling</option>
+                <option value="Office Design" className="bg-[#2D1F1A] text-white">Sophisticated Studio Workspace</option>
+                <option value="Luxury Consultation" className="bg-[#2D1F1A] text-white">Bespoke Architectural Walkthrough</option>
+                {requirement !== "Full Home Interior" &&
+                  requirement !== "Kitchen Remodel" &&
+                  requirement !== "Office Design" &&
+                  requirement !== "Luxury Consultation" && (
+                    <option value={requirement} className="bg-[#2D1F1A] text-white">
+                      {requirement}
+                    </option>
+                  )}
+              </select>
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-white/60">
+                <ChevronRight className="w-4 h-4 rotate-90" />
+              </div>
+            </div>
           </div>
 
           {/* Optional Notes */}
@@ -236,14 +241,14 @@ export default function ConsultationForm({ initialRequirement = "Full Home Inter
               onChange={(e) => setNotes(e.target.value)}
               rows={2}
               placeholder="Include details about square footage, layout quirks, or material ideas..."
-              className="w-full bg-transparent border-b border-white/30 focus:border-beige-warm focus:ring-0 py-2 transition-colors text-white text-sm outline-none outline-0 resize-none"
+              className="w-full bg-transparent border-b border-white/30 focus:border-beige-warm focus:border-b-2 py-2 transition-all text-white placeholder:text-white/40 text-sm outline-none outline-0 resize-none"
             />
           </div>
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="md:col-span-2 bg-[#EAE0D5] text-stone-900 py-4.5 rounded-lg hover:bg-white active:scale-95 transition-all duration-300 font-bold uppercase tracking-widest text-xs mt-4 disabled:opacity-50"
+            className="md:col-span-2 bg-[#EAE0D5] text-stone-900 py-4.5 rounded-lg hover:bg-white active:scale-95 transition-all duration-300 font-bold uppercase tracking-widest text-xs mt-4 disabled:opacity-50 cursor-pointer"
           >
             {isSubmitting ? "Locking slot credentials..." : "Schedule Design Lock Appointment"}
           </button>

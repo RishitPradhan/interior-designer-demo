@@ -1,4 +1,4 @@
-import { ArrowRight, Compass, ShieldCheck } from "lucide-react";
+import { ArrowRight, Compass, ShieldCheck, ChevronRight } from "lucide-react";
 
 interface HeroProps {
   onConsultationClick: () => void;
@@ -41,13 +41,13 @@ export default function Hero({ onConsultationClick, onExploreProjects, onOpenAIS
           <div className="flex flex-wrap gap-4 pt-2">
             <button
               onClick={onConsultationClick}
-              className="bg-wood-rich text-white hover:bg-[#4E3629] px-6 md:px-8 py-3.5 md:py-4 rounded font-semibold text-xs tracking-widest uppercase shadow-lg transition-all duration-300"
+              className="bg-wood-rich text-white hover:bg-[#4E3629] px-6 md:px-8 py-3.5 md:py-4 rounded font-semibold text-xs tracking-widest uppercase shadow-lg transition-all duration-300 cursor-pointer"
             >
               Book Free Consultation
             </button>
             <button
               onClick={onOpenAISandbox}
-              className="border border-white/30 text-white bg-white/10 hover:bg-white hover:text-primary backdrop-blur-md px-6 md:px-8 py-3.5 md:py-4 rounded font-semibold text-xs tracking-widest uppercase transition-all duration-300 flex items-center gap-2"
+              className="border border-white/30 text-white bg-white/10 hover:bg-white hover:text-primary backdrop-blur-md px-6 md:px-8 py-3.5 md:py-4 rounded font-semibold text-xs tracking-widest uppercase transition-all duration-300 flex items-center gap-2 cursor-pointer"
             >
               <Compass className="w-4 h-4 animate-spin-slow text-accent-coral" />
               AI Design Assistant
@@ -57,9 +57,9 @@ export default function Hero({ onConsultationClick, onExploreProjects, onOpenAIS
       </div>
 
       {/* Floating Trust Stats Panel */}
-      <div className="absolute bottom-6 md:bottom-12 left-6 right-6 md:left-20 md:right-20 max-w-7xl mx-auto z-10 hidden sm:block">
+      <div className="absolute bottom-6 md:bottom-12 left-6 right-6 md:left-20 md:right-20 max-w-7xl mx-auto z-10 flex flex-col sm:flex-row justify-between items-center gap-6 pointer-events-none">
         <div
-          className="py-5 px-8 md:px-12 inline-flex flex-wrap gap-10 md:gap-16 rounded-xl border border-white/20"
+          className="py-5 px-8 md:px-12 inline-flex flex-wrap gap-10 md:gap-16 rounded-xl border border-white/20 pointer-events-auto hidden sm:flex"
           style={{
             background: "rgba(255, 255, 255, 0.12)",
             backdropFilter: "blur(32px)",
@@ -97,6 +97,15 @@ export default function Hero({ onConsultationClick, onExploreProjects, onOpenAIS
             </div>
           </div>
         </div>
+
+        {/* Scroll Explorer Button */}
+        <button
+          onClick={onExploreProjects}
+          className="pointer-events-auto flex items-center gap-2.5 text-[#FFF5EB]/70 hover:text-white transition duration-300 group cursor-pointer bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 text-xs font-semibold uppercase tracking-widest self-end sm:self-auto"
+        >
+          <span>Explore Atelier</span>
+          <ChevronRight className="w-4 h-4 rotate-90 group-hover:translate-y-0.5 transition-transform" />
+        </button>
       </div>
     </section>
   );

@@ -50,16 +50,16 @@ export default function Estimator({ onQuoteSubmit }: EstimatorProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch" id="pricing-estimator">
       {/* Input controls block */}
-      <div className="lg:col-span-7 bg-white p-6 md:p-10 rounded-2xl border border-stone-100 flex flex-col justify-between space-y-8">
+      <div className="lg:col-span-7 bg-white p-8 md:p-10 rounded-3xl border border-stone-200/80 shadow-sm flex flex-col justify-between space-y-8">
         <div className="space-y-6">
-          <div className="flex items-center gap-2 text-wood-rich font-semibold uppercase tracking-wider text-xs">
-            <Sliders className="w-4 h-4" />
+          <div className="flex items-center gap-2 text-wood-rich font-extrabold uppercase tracking-wider text-xs border-b border-stone-100 pb-3">
+            <Sliders className="w-4 h-4 text-accent-coral" />
             Customize Design Input Configuration
           </div>
 
           {/* Type / Size */}
           <div className="space-y-3">
-            <label className="block text-xs uppercase tracking-widest font-bold text-stone-500">
+            <label className="block text-[10px] uppercase tracking-widest font-extrabold text-stone-500 font-sans">
               Step 1: Select Home Configuration
             </label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -67,14 +67,14 @@ export default function Estimator({ onQuoteSubmit }: EstimatorProps) {
                 <button
                   key={s.id}
                   onClick={() => setSize(s.id)}
-                  className={`py-3.5 px-4 rounded border text-left transition-all duration-300 ${
+                  className={`py-3.5 px-4 rounded-xl border text-left transition-all duration-300 hover:scale-[1.02] cursor-pointer ${
                     size === s.id
-                      ? "bg-wood-rich text-white border-wood-rich shadow"
-                      : "bg-stone-50 hover:bg-stone-100 text-stone-700 border-stone-200"
+                      ? "bg-wood-rich text-white border-wood-rich shadow-md"
+                      : "bg-[#FAF9F6] hover:bg-[#F3EFE9] text-stone-750 border-stone-200/80"
                   }`}
                 >
                   <div className="text-xs font-bold leading-none">{s.label}</div>
-                  <div className={`text-[10px] mt-1 ${size === s.id ? "text-stone-300" : "text-stone-500"}`}>
+                  <div className={`text-[9.5px] mt-1 ${size === s.id ? "text-stone-300" : "text-stone-500"}`}>
                     {s.range}
                   </div>
                 </button>
@@ -84,7 +84,7 @@ export default function Estimator({ onQuoteSubmit }: EstimatorProps) {
 
           {/* Style Preference */}
           <div className="space-y-3">
-            <label className="block text-xs uppercase tracking-widest font-bold text-stone-500">
+            <label className="block text-[10px] uppercase tracking-widest font-extrabold text-stone-500 font-sans">
               Step 2: Select Aesthetic Theme
             </label>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -92,14 +92,14 @@ export default function Estimator({ onQuoteSubmit }: EstimatorProps) {
                 <button
                   key={st.id}
                   onClick={() => setStyleVal(st.id)}
-                  className={`p-4 rounded border text-left transition-all duration-300 ${
+                  className={`p-4 rounded-xl border text-left transition-all duration-300 hover:scale-[1.02] cursor-pointer ${
                     styleVal === st.id
-                      ? "bg-wood-rich text-white border-wood-rich shadow"
-                      : "bg-stone-50 hover:bg-stone-100 text-stone-700 border-stone-200"
+                      ? "bg-wood-rich text-white border-wood-rich shadow-md"
+                      : "bg-[#FAF9F6] hover:bg-[#F3EFE9] text-stone-750 border-stone-200/80"
                   }`}
                 >
                   <div className="text-xs font-bold">{st.label}</div>
-                  <div className={`text-[10px] mt-1 line-clamp-2 leading-snug ${styleVal === st.id ? "text-stone-300" : "text-stone-500"}`}>
+                  <div className={`text-[9.5px] mt-1 line-clamp-2 leading-snug ${styleVal === st.id ? "text-stone-300" : "text-stone-500"}`}>
                     {st.desc}
                   </div>
                 </button>
@@ -109,18 +109,18 @@ export default function Estimator({ onQuoteSubmit }: EstimatorProps) {
 
           {/* Material Quality Level */}
           <div className="space-y-4">
-            <label className="block text-xs uppercase tracking-widest font-bold text-stone-500 font-sans">
+            <label className="block text-[10px] uppercase tracking-widest font-extrabold text-stone-500 font-sans">
               Step 3: Specify Material Finish Level
             </label>
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               {TIERS.map((t) => (
                 <button
                   key={t.id}
                   onClick={() => setTier(t.id)}
-                  className={`w-full p-4 rounded-xl border text-left flex items-start gap-4 transition-all duration-300 ${
+                  className={`w-full p-4 rounded-xl border text-left flex items-start gap-4 transition-all duration-300 hover:scale-[1.005] cursor-pointer ${
                     tier === t.id
-                      ? "bg-stone-900 text-white border-stone-900 shadow-lg"
-                      : "bg-stone-50 hover:bg-stone-100 text-stone-700 border-stone-150"
+                      ? "bg-stone-900 text-white border-stone-900 shadow-md"
+                      : "bg-[#FAF9F6] hover:bg-[#F3EFE9] text-stone-750 border-stone-200/80"
                   }`}
                 >
                   <input
@@ -133,12 +133,12 @@ export default function Estimator({ onQuoteSubmit }: EstimatorProps) {
                     <div className="text-xs font-bold flex items-center gap-2">
                       {t.label}
                       {t.id === "signature" && (
-                        <span className="bg-accent-coral text-white text-[8px] tracking-widest font-bold uppercase px-1.5 py-0.5 rounded leading-none">
+                        <span className="bg-accent-coral text-white text-[8px] tracking-widest font-bold uppercase px-2 py-0.5 rounded leading-none">
                           Ultra Recommended
                         </span>
                       )}
                     </div>
-                    <div className={`text-[11px] mt-1 ${tier === t.id ? "text-stone-300" : "text-stone-400"}`}>
+                    <div className={`text-[10.5px] mt-1 ${tier === t.id ? "text-stone-300" : "text-stone-550"}`}>
                       {t.desc}
                     </div>
                   </div>
@@ -149,13 +149,13 @@ export default function Estimator({ onQuoteSubmit }: EstimatorProps) {
         </div>
 
         {/* Dynamic style tip warning box */}
-        <div className="p-4 bg-beige-warm/30 rounded-lg border border-beige-warm/50 flex gap-3 text-xs leading-relaxed text-stone-700 font-sans">
+        <div className="p-5 bg-[#FAF9F6] rounded-xl border border-stone-200 flex gap-3 text-xs leading-relaxed text-stone-700 font-sans">
           <AlertCircle className="w-5 h-5 text-wood-rich shrink-0" />
-          <div>
+          <div className="text-left">
             <span className="font-bold text-wood-rich uppercase tracking-wider block mb-1">
               {styleTip.style} Recommendation ({styleTip.tagline})
             </span>
-            <ul className="list-disc list-inside space-y-1">
+            <ul className="list-disc list-inside space-y-1 font-light text-stone-650">
               {styleTip.pointers.map((p, index) => (
                 <li key={index}>{p}</li>
               ))}
@@ -165,39 +165,41 @@ export default function Estimator({ onQuoteSubmit }: EstimatorProps) {
       </div>
 
       {/* Visual calculator output board */}
-      <div className="lg:col-span-5 bg-slate-deep text-beige-warm p-10 rounded-2xl flex flex-col justify-between space-y-8 shadow-xl text-center relative overflow-hidden">
+      <div className="lg:col-span-5 bg-gradient-to-br from-stone-900 to-stone-955 text-beige-warm p-10 rounded-3xl flex flex-col justify-between space-y-8 shadow-xl text-center relative overflow-hidden border border-stone-850">
         {/* Subtle abstract luxury geometric background */}
         <div className="absolute top-0 right-0 w-48 h-48 bg-wood-rich/20 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-[#FFF5EB]/5 rounded-full blur-3xl pointer-events-none" />
+        {/* Gold top border line */}
+        <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-accent-coral/70 to-beige-warm/75" />
 
-        <div className="space-y-3 relative z-10">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 rounded-full text-[10px] tracking-widest font-bold uppercase text-stone-300 border border-white/5">
+        <div className="space-y-4 relative z-10">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/5 rounded-full text-[10px] tracking-widest font-bold uppercase text-stone-300 border border-white/10">
             <Sparkles className="w-3.5 h-3.5 text-beige-warm animate-pulse" />
             Estimated Luxury Projection
           </span>
-          <div className="font-serif text-3xl md:text-5xl text-beige-warm tracking-tight py-4" id="budget-value">
+          <div className="font-serif text-3xl md:text-5xl text-beige-warm font-bold tracking-tight py-4" id="budget-value">
             {formattedBudget}
           </div>
         </div>
 
-        <div className="space-y-4 relative z-10 text-stone-300 text-xs text-left max-w-sm mx-auto bg-stone-900/40 p-5 rounded-xl border border-white/5">
+        <div className="space-y-4 relative z-10 text-stone-300 text-xs text-left max-w-sm mx-auto bg-black/35 p-6 rounded-2xl border border-white/5 shadow-inner">
           <div className="text-[10px] font-bold uppercase tracking-widest text-[#FFF5EB] border-b border-white/10 pb-2 mb-2">
             Selected Package Details
           </div>
-          <div className="flex justify-between">
-            <span>Home Size:</span>
+          <div className="flex justify-between py-1">
+            <span className="text-stone-400">Home Size:</span>
             <span className="font-bold text-white">{selectedSize.label} ({selectedSize.range})</span>
           </div>
-          <div className="flex justify-between">
-            <span>Theme:</span>
+          <div className="flex justify-between py-1">
+            <span className="text-stone-400">Theme:</span>
             <span className="font-bold text-white">{selectedStyle.label}</span>
           </div>
-          <div className="flex justify-between">
-            <span>Premium Materials:</span>
-            <span className="font-bold text-white">{selectedTier.label}</span>
+          <div className="flex justify-between py-1">
+            <span className="text-stone-400">Premium Materials:</span>
+            <span className="font-bold text-white text-right">{selectedTier.label}</span>
           </div>
-          <p className="text-[10.5px] text-stone-400 mt-3 pt-3 border-t border-white/5 leading-relaxed italic">
-            *This comprehensive estimation covers absolute turnkey end-to-end management, layout planning, full premium materials, bespoke furniture selection, and clean Move-In handover.
+          <p className="text-[10.5px] text-stone-500 mt-3 pt-3 border-t border-white/5 leading-relaxed italic">
+            *This comprehensive estimation covers turnkey end-to-end management, spatial layouts, full premium materials, bespoke furniture selection, and clean Move-In handover.
           </p>
         </div>
 
@@ -210,7 +212,7 @@ export default function Estimator({ onQuoteSubmit }: EstimatorProps) {
               calculatedRef: formattedBudget,
             })
           }
-          className="w-full bg-[#EAE0D5] text-stone-900 hover:bg-white hover:shadow-lg hover:scale-[1.02] active:scale-95 py-4 rounded-xl font-bold tracking-wider text-xs uppercase shadow transition-all duration-300 relative z-10"
+          className="w-full bg-[#EAE0D5] text-stone-900 hover:bg-white hover:shadow-lg hover:scale-[1.02] active:scale-95 py-4 rounded-xl font-bold tracking-widest text-xs uppercase shadow transition-all duration-300 relative z-10 cursor-pointer"
         >
           Proceed to exact quote locked
         </button>
